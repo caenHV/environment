@@ -9,6 +9,8 @@ RUN apt update && \
         libncursesw5-dev \
         libusb-1.0-0 \
         dwarves \
+        git \
+        wget \
         software-properties-common -y && \
     DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt install tzdata -y && \
     add-apt-repository ppa:deadsnakes/ppa -y && \
@@ -17,7 +19,9 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3.12 100 && \
     update-alternatives --config python && \
+    wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py && rm get-pip.py && \
     cd /app/CAENVMELib-v3.4.0/lib/ && chmod +x ./install_x64 && ./install_x64 && cd / && \
+    cd /app/CAENComm-v1.6.0/lib/ && chmod +x ./install_x64 && ./install_x64 && cd / && \
     cd /app/CAENHVWrapper-6.3/ && chmod +x ./install.sh && ./install.sh && cd / && \
     ln -s /lib64/libcaenhvwrapper.so /lib/libcaenhvwrapper.so && \
     echo "HELLO WORLD"
