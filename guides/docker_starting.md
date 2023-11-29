@@ -15,6 +15,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-o
   * `--rm` - удаляет запущенный контейнер после работы
   * `--privileged` - запуск в привилегированном режиме (открывает доступ к устройствам)
   * `-v <DIRECTORY>:<CONTAINER_DIRECTORY>` - монтирование папки из основной системы, `<DIRECTORY>` - это путь к папке, которую нужно смонтировать, `<CONTAINER_DIRECTORY>` - путь внутри контейнера
+  * `-p <HOST_PORT>:<CONTAINER_PORT>` - открыть порт
 
 ### Дополнительные команды
 * `docker image rm <image_name>` - удалить контейнер `<image_name>`
