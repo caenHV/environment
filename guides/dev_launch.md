@@ -39,3 +39,15 @@ uvicorn caen_tools.WebService.ws:app --host 0.0.0.0
 * Переходим в браузере по ссылке [http://dq11cmd:8000](http://dq11cmd:8000). Должны увидеть похожую страницу. 
 ![webservice screen](../assets/webscreen.png)
 Это и есть управление источником CAEN. Отправить задачу можно нажатием на кнопку `New Ticket`. В разделе `Chart` показана зависимость напряжения на каналах CAEN от времени (изначально диапазон 10 минут)
+
+## Troubleshooting
+
+### `dq11cmd` не реагирует
+1. перезагрузить dq11cmd
+1. запустить демон докера `sudo systemctl start docker`
+1. переустановить драйвер взаимодействия с **A3818**
+  ```bash
+  cd /setups/caen/soft/A3818Drv-1.6.8/
+  make
+  sudo make install 
+  ```
