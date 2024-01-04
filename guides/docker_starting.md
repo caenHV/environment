@@ -32,3 +32,22 @@ docker run -it --rm --privileged -v ./controller:/controller test_img
 проблема акутальна для `dq11cmd`, поскольку docker хранит свой кэш в папке `/var/lib/docker` (там немного свободного места)
 * командой `df -h /var/` можно посмотреть количество свободного места в папке
 * если всё плохо, то помогает команда [`docker system prune`](https://docs.docker.com/engine/reference/commandline/system_prune/) или можно поискать ещё решения [на форумах](https://forums.docker.com/t/docker-no-space-left-on-device/69205)
+
+### Docker ругается при запуске на то, что порт уже выделен
+
+Если при поптыке запустить образ Docker выдаёт что-то подбное 
+```
+docker: Error response from daemon: driver failed programming external connectivity on endpoint xenodochial_chandrasekhar (00c428b8fdbd8cc34c6eb6103a7ea1fc0ab4a0c2d97178d520c6081f428742b5): Bind for 0.0.0.0:8000 failed: port is already allocated.
+```
+То простым и действенным решением этой беды может быть перезапуск Docker-а:
+```
+$ sudo service docker stop
+Redirecting to /bin/systemctl stop docker.service
+Warning: Stopping docker.service, but it can still be activated by:
+  docker.socket
+$ sudo service docker start
+Redirecting to /bin/systemctl start docker.service
+```
+
+Такая ошибка возникает, если предыдущая сессия с контейнером завершилась криво. Например, вы через ssh подключились к dq11cmd, запустили контейнер, но произошёл обрыв соединения между вашей машиной и dq11cmd. 
+В таком случае возможно кривое завершение (не завершение) работы контейнера.
