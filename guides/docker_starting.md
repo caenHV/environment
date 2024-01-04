@@ -49,5 +49,9 @@ $ sudo service docker start
 Redirecting to /bin/systemctl start docker.service
 ```
 
+Причём стоит заметить то, что другие Docker-комманды могут не работать из-за 
+```
+permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/json": dial unix /var/run/docker.sock: connect: permission denied
+```
 Такая ошибка возникает, если предыдущая сессия с контейнером завершилась криво. Например, вы через ssh подключились к dq11cmd, запустили контейнер, но произошёл обрыв соединения между вашей машиной и dq11cmd. 
 В таком случае возможно кривое завершение (не завершение) работы контейнера.
