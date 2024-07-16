@@ -29,9 +29,11 @@ docker run -it --rm --privileged -v ./controller:/controller test_img
 ## Troubleshooting
 
 ### Закончилось место на диске
-проблема акутальна для `dq11cmd`, поскольку docker хранит свой кэш в папке `/var/lib/docker` (там немного свободного места)
+проблема была акутальна для `dq11cmd`, поскольку docker хранит по умолчанию свой кэш в папке `/var/lib/docker` (там немного свободного места)
 * командой `df -h /var/` можно посмотреть количество свободного места в папке
 * если всё плохо, то помогает команда [`docker system prune`](https://docs.docker.com/engine/reference/commandline/system_prune/) или можно поискать ещё решения [на форумах](https://forums.docker.com/t/docker-no-space-left-on-device/69205)
+
+UPD: сейчас проблема не актуальна для `dq11cmd`, поскольку локация кэша была изменена (актуальный путь можно найти в выводе команды `docker info`)
 
 ### Docker ругается при запуске на то, что порт уже выделен
 

@@ -1,0 +1,41 @@
+services:
+  webserver:
+    build:
+      dockerfile: ./Dockerfile
+      target: webserver
+    configs:
+      - userconf.ini
+    volumes:
+      - ./store:/store
+    command: caen_webserver -c /userconf.ini
+    ports:
+      - "8000:8000"
+    links:
+      - "devback"
+      - "monitor"
+    restart: unless-stopped
+  devback:
+    build:
+      dockerfile: ./Dockerfile
+      target: devback
+    privileged: false
+    configs:
+      - userconf.ini
+    volumes:
+      - ./store:/store
+    command: caen_device_backend -c /userconf.ini
+    restart: unless-stopped
+  monitor:
+    build:
+      dockerfile: ./Dockerfile
+      target: monitor
+    configs:
+      - userconf.ini
+    volumes:
+      - ./store:/store
+    command: caen_monitor -c /userconf.ini
+    restart: unless-stopped
+
+configs:
+  userconf.ini:
+    file: ./config.ini

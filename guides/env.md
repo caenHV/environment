@@ -20,20 +20,3 @@ usermod -a -G caen_devs petrov
 * [Как установить дефолтные права на файлы в директории](https://unix.stackexchange.com/questions/1314/how-to-set-default-file-permissions-for-all-folders-files-in-a-directory)
 
 5. (Опционально) разрешить sudo конкретному пользователю через [добавление](https://wiki.merionet.ru/articles/kak-dat-polzovatelyu-sudo-prava-v-centos-8/) его в группу wheel
-
-## Работа с docker
-1. 
-
-```Docker
-RUN apk update
-RUN apk --no-cache --update add \
-    build-base \
-    udev \
-    ncurses-libs \
-    ncurses-dev \
-    libusb \
-```
-
-Troubleshooting
-если мало свободного места, проверьте остаток командой df -h /var/
-Удалить всё можно командой docker system prune --all
