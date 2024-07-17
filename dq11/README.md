@@ -1,5 +1,4 @@
-# Запуск caen_tools в dev режиме
-(dev режим обозначает использование FakeBoard вместо реального оборудования)
+# Запуск caen_tools
 
 ## Идея
 У нас три микросервиса: `WebService`, `Monitor`, `DeviceBackend`.
@@ -19,9 +18,9 @@
 ## Как запустить
 
 * Скопировать всё содержимое текущей директории в рабочую директорию.
-* Поднять микросервисы (в detach режиме, т.е. в фоне)
+* Поднять микросервисы (`-d` в detach режиме, т.е. в фоне; `--build` пересобрать контейнеры, если что-то в них изменилось)
 ```bash
-docker compose up -d
+docker compose up --build -d
 ```
 
 Всё должно работать, на `8000` порте рабочей машины должен появиться фронтенд интерфейс.
@@ -36,9 +35,10 @@ sudo docker compose down
 ```
 
 ## Переход к release режиму
-1. В *Dockerfile* нужно изменить в `base` блоке 
-адрес *.whl* модуля `caen_tools` на соответствующий release версии
-1. В *Dockerfile* установить флаг true для опции privileged сервиса `devback`
+(работа с реальной CAEN board)
+
+1. В *config.ini* установить флаг false для опции fake_board в разделе `devback`
+1. В *compose.yaml* установить флаг true для опции privileged сервиса `devback`
 
 ## Полезные ссылки
 * [Официальный сайт docker compose](https://docs.docker.com/compose/gettingstarted/)

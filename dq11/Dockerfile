@@ -28,9 +28,7 @@ RUN apt update && \
     ln -s /lib64/libcaenhvwrapper.so /lib/libcaenhvwrapper.so
 
 FROM prebase AS base
-RUN wget 'https://github.com/caenHV/caen_tools/releases/download/v1.2.1-dev/caen_tools-1.2.1-py3-none-any.whl' && \
-    pip install 'caen_tools-1.2.1-py3-none-any.whl[webservice]' && \
-    rm caen_tools-1.2.1-py3-none-any.whl
+RUN pip install 'caen_tools[webservice] @ https://github.com/caenHV/caen_tools/releases/download/v1.3/caen_tools-1.3-py3-none-any.whl'
 
 FROM base AS webserver
 CMD caen_webserver 
