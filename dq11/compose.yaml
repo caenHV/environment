@@ -33,6 +33,7 @@ services:
       - userconf.ini
     volumes:
       - ./store:/store
+      - /home/cmd3daq/caendc/data/:/odb/data
     command: caen_monitor -c /userconf.ini
     restart: unless-stopped
 
