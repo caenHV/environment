@@ -13,6 +13,7 @@ services:
     links:
       - "devback"
       - "monitor"
+      - "syscheck"
     restart: unless-stopped
   devback:
     build:
@@ -35,6 +36,19 @@ services:
       - ./store:/store
       - /home/cmd3daq/caendc/data/:/odb/data
     command: caen_monitor -c /userconf.ini
+    restart: unless-stopped
+  syscheck:
+    build:
+      dockerfile: ./Dockerfile
+      target: syscheck
+    configs:
+      - userconf.ini
+    volumes:
+      - ./store:/store
+    command: caen_system_check -c /userconf.ini
+    links:
+      - "devback"
+      - "monitor"
     restart: unless-stopped
 
 configs:

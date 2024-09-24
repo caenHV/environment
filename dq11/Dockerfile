@@ -28,7 +28,7 @@ RUN apt update && \
     ln -s /lib64/libcaenhvwrapper.so /lib/libcaenhvwrapper.so
 
 FROM prebase AS base
-RUN pip install 'caen_tools[webservice] @ https://github.com/caenHV/caen_tools/releases/download/v1.4/caen_tools-1.4-py3-none-any.whl'
+RUN pip install 'caen_tools[webservice] @ https://github.com/caenHV/caen_tools/releases/download/v2.1.1-dev/caen_tools-2.1-py3-none-any.whl'
 
 FROM base AS webserver
 CMD caen_webserver 
@@ -38,3 +38,6 @@ CMD caen_device_backend
 
 FROM base AS monitor
 CMD caen_monitor
+
+FROM base AS syscheck
+CMD caen_system_check
