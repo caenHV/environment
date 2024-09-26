@@ -1,4 +1,11 @@
-FROM ubuntu:22.04 AS prebase
+ARG PACKAGE_WHL="https://github.com/caenHV/caen_tools/releases/download/v2.2-dev/caen_tools-2.2-py3-none-any.whl"
+
+FROM python:3.12-alpine AS caen_others
+ARG PACKAGE_WHL
+RUN apk add --no-cache git && \
+    pip install "caen_tools @ ${PACKAGE_WHL}"
+
+FROM ubuntu:22.04 AS base
 COPY ./soft /app
 ENV DEBIAN_FRONTEND="noninteractive"
 RUN apt update && \
@@ -27,17 +34,10 @@ RUN apt update && \
     cd /app/CAENHVWrapper-6.3/ && chmod +x ./install.sh && ./install.sh && cd / && \
     ln -s /lib64/libcaenhvwrapper.so /lib/libcaenhvwrapper.so
 
-FROM prebase AS base
-RUN pip install 'caen_tools[webservice] @ https://github.com/caenHV/caen_tools/releases/download/v2.1.1-dev/caen_tools-2.1-py3-none-any.whl'
-
 FROM base AS webserver
-CMD caen_webserver 
+ARG PACKAGE_WHL
+RUN pip install "caen_tools[webservice] @ ${PACKAGE_WHL}"
 
 FROM base AS devback
-CMD caen_device_backend
-
-FROM base AS monitor
-CMD caen_monitor
-
-FROM base AS syscheck
-CMD caen_system_check
+ARG PACKAGE_WHL
+RUN pip install "caen_tools @ ${PACKAGE_WHL}"

@@ -1,5 +1,6 @@
 services:
   webserver:
+    image: webserver:2.2
     build:
       dockerfile: ./Dockerfile
       target: webserver
@@ -16,6 +17,7 @@ services:
       - "syscheck"
     restart: unless-stopped
   devback:
+    image: devback:2.2
     build:
       dockerfile: ./Dockerfile
       target: devback
@@ -27,9 +29,10 @@ services:
     command: caen_device_backend -c /userconf.ini
     restart: unless-stopped
   monitor:
+    image: monitor:2.2
     build:
       dockerfile: ./Dockerfile
-      target: monitor
+      target: caen_others
     configs:
       - userconf.ini
     volumes:
@@ -38,9 +41,10 @@ services:
     command: caen_monitor -c /userconf.ini
     restart: unless-stopped
   syscheck:
+    image: syscheck:2.2
     build:
       dockerfile: ./Dockerfile
-      target: syscheck
+      target: caen_others
     configs:
       - userconf.ini
     volumes:
@@ -49,6 +53,8 @@ services:
     links:
       - "devback"
       - "monitor"
+    external_links:
+      - "dq2cmd.inp.nsk.su"
     restart: unless-stopped
 
 configs:

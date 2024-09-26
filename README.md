@@ -1,7 +1,7 @@
 # Environment guide
 
 ## `dq11cmd`
-* На `dq11cmd` у нас будет находиться `DeviceBackend`, `Monitor` (и даже `WebService` пока что)
+* На `dq11cmd` у нас будет находиться `DeviceBackend`, `Monitor`, `SystemCheck` (и даже `WebService` пока что)
 
 ### Идея 
 запустим все сервисы в docker-контейнере.
@@ -32,7 +32,7 @@
   * [Как работать](guides/private_github.md) с приватными репозиториями github
 
 ## `dq1cmd`
-* На `dq1cmd` будет находиться `WebService`
+* На `dq1cmd` будет находиться `WebService` (но не сейчас)
 
 ## Полезные инструкции
 

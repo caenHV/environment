@@ -1,7 +1,7 @@
 # Запуск caen_tools
 
 ## Идея
-У нас три микросервиса: `WebService`, `Monitor`, `DeviceBackend`.
+У нас четыре микросервиса: `WebService`, `Monitor`, `DeviceBackend`, `SystemCheck`.
 На данном этапе запустим их все на одной машине, но каждый в своём отдельном контейнере.
 
 Технически для этого нужно сконфигурировать фаил для `docker compose` (*compose.yaml*), 
