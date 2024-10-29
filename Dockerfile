@@ -1,9 +1,12 @@
-ARG PACKAGE_WHL="https://github.com/caenHV/caen_tools/releases/download/v2.2-dev/caen_tools-2.2-py3-none-any.whl"
+ARG PACKAGE_WHL="https://github.com/caenHV/caen_tools/releases/download/v2.3.9-dev/caen_tools-2.3.9-py3-none-any.whl"
 
 FROM python:3.12-alpine AS caen_others
 ARG PACKAGE_WHL
 RUN apk add --no-cache git && \
+    apk --update add postgresql-client && \
     pip install "caen_tools @ ${PACKAGE_WHL}"
+RUN mkdir /run/postgresql &&\
+    chown postgres:postgres /run/postgresql/
 
 FROM ubuntu:22.04 AS base
 COPY ./soft /app
@@ -37,6 +40,10 @@ RUN apt update && \
 FROM base AS webserver
 ARG PACKAGE_WHL
 RUN pip install "caen_tools[webservice] @ ${PACKAGE_WHL}"
+
+FROM base AS devback
+ARG PACKAGE_WHL
+RUN pip install "caen_tools @ ${PACKAGE_WHL}"
 
 FROM base AS devback
 ARG PACKAGE_WHL
