@@ -21,7 +21,7 @@ services:
     build:
       dockerfile: ./Dockerfile
       target: devback
-    privileged: true
+    privileged: false
     configs:
       - userconf.ini
     volumes:
@@ -40,7 +40,7 @@ services:
       - /home/cmd3daq/caendc/data/:/odb/data
     command: caen_monitor -c /userconf.ini
     restart: unless-stopped
-    syscheck:
+  syscheck:
     image: syscheck:dev
     build:
       dockerfile: ./Dockerfile
@@ -50,8 +50,6 @@ services:
     volumes:
       - ./store:/store
     command: caen_system_check -c /userconf.ini
-    ports:
-      - "5432:5432"
     links:
       - "devback"
       - "monitor"
