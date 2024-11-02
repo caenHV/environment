@@ -19,11 +19,6 @@ make
 make install
 echo "Installation of the drivers for A3818 board is completed."
 
-echo "Installing CAENHVWrapper..."
-cd $CAENHVWrapper_RDIR
-./install.sh 
-echo "Installation of CAENHVWrapper is completed."
-
 # Building and seting up docker containers
 echo "Building and seting up docker containers (takes about 10-15 minutes)..."
 cd $dq11DIR
