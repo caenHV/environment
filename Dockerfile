@@ -1,4 +1,4 @@
-ARG PACKAGE_WHL="https://github.com/caenHV/caen_tools/releases/download/v2.3.9-dev/caen_tools-2.3.9-py3-none-any.whl"
+ARG PACKAGE_WHL="https://github.com/caenHV/caen_tools/releases/download/v2.3.9-dev2/caen_tools-2.3.9-py3-none-any.whl"
 
 FROM python:3.12-alpine AS caen_others
 ARG PACKAGE_WHL
@@ -37,13 +37,9 @@ RUN apt update && \
     cd /app/CAENHVWrapper-6.3/ && chmod +x ./install.sh && ./install.sh && cd / && \
     ln -s /lib64/libcaenhvwrapper.so /lib/libcaenhvwrapper.so
 
-FROM base AS webserver
+FROM caen_others AS webserver
 ARG PACKAGE_WHL
 RUN pip install "caen_tools[webservice] @ ${PACKAGE_WHL}"
-
-FROM base AS devback
-ARG PACKAGE_WHL
-RUN pip install "caen_tools @ ${PACKAGE_WHL}"
 
 FROM base AS devback
 ARG PACKAGE_WHL

@@ -1,1 +1,0 @@
-cmd_/home/user/CAEN/A3818Drv-1.6.8/Module.symvers := sed 's/\.ko$$/\.o/' /home/user/CAEN/A3818Drv-1.6.8/modules.order | scripts/mod/modpost -m -a  -o /home/user/CAEN/A3818Drv-1.6.8/Module.symvers -e -i Module.symvers   -T -
